@@ -40,9 +40,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
     //图片网址
     private static String imgUrl = null;
 
-    //第几条数据
-    private static int index = 0;
-
     private String jsonStr;
 
     private RecyclerView recyclerView;
@@ -54,7 +51,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
     private static ImageView imgShow;
     //占位的帧布局
     private static FrameLayout frameLayout;
-    private static boolean isImgShow;
     private ImageView imageView;
     private AnimationDrawable anim;
 
@@ -97,38 +93,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-
-            /**
-             * 监听滑动事件，实现类似Viewager的切换效果，
-             *
-             * @param recyclerView
-             * @param dx
-             * @param dy           dy>0代表上拉  dy<0代表下拉
-             */
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                //TODO 仿viewpager滑动效果
-
-//                if (dy >= 0 && recyclerView.getChildAt(0).getTop() < 0 && Math.abs(recyclerView.getChildAt(0).getTop()) > recyclerView.getHeight() / 2) {
-//                    recyclerView.scrollToPosition(++index);
-//                } else if (dy < 0 && recyclerView.getChildAt(0).getTop() < 0 && Math.abs(recyclerView.getChildAt(0).getTop()) < recyclerView.getHeight() / 2) {
-//                    recyclerView.scrollToPosition(--index);
-//                }
-
-            }
-        });
-
 
         imgShow.setOnClickListener(this);
         imgShow.setOnLongClickListener(this);
@@ -182,8 +146,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onClick(View v) {
         frameLayout.setVisibility(View.INVISIBLE);
-        isImgShow = false;
-
     }
 
     /**
@@ -254,7 +216,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
 
         @Override
         public int getItemCount() {
-
             int ret = 0;
             if (datas != null) {
                 ret = datas.size();
@@ -264,9 +225,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
             ViewHolder ret = null;
-
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity().getApplicationContext());
             View view = layoutInflater.inflate(R.layout.fragment_homepage_recyclerview_item, parent, false);
             ret = new ViewHolder(view);
@@ -301,44 +260,25 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
                 }
 
             }
-
-
-            String str = hpEntity.getAuthor();
-            holder.txtTitle.setText(str);
-            holder.txtAuthor.setText(str);
             holder.txtContent.setText(hpEntity.getStrContent());
-            holder.txtPn.setText(hpEntity.getStrPn());
-
-
         }
-
     }
 
 
     /**
-     * VuewHolder
+     * ViewHolder
      */
     private static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView imageView;
-        private TextView txtTitle;
-        private TextView txtAuthor;
         private TextView txtContent;
-        private TextView txtPn;
 
         public ViewHolder(final View itemView) {
             super(itemView);
 
             imageView = (ImageView) itemView.findViewById(R.id.fragment_homepage_item_icon);
-            txtTitle = (TextView) itemView.findViewById(R.id.fragment_homepage_item_title);
-            txtAuthor = (TextView) itemView.findViewById(R.id.fragment_homepage_item_author);
             txtContent = (TextView) itemView.findViewById(R.id.fragment_homepage_item_content);
-            txtPn = (TextView) itemView.findViewById(R.id.fragment_homepage_item_pn);
-
             imageView.setOnClickListener(this);
-
-            txtPn.setOnClickListener(this);
-
         }
 
         @Override
@@ -348,31 +288,13 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
 
             switch (id) {
                 case R.id.fragment_homepage_item_icon:
-
                     frameLayout.setVisibility(View.VISIBLE);
                     imgShow.setImageDrawable(imageView.getDrawable());
                     Animation mAnimation = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.imgshowscal);
                     mAnimation.setFillAfter(true);
                     imgShow.startAnimation(mAnimation);
-
-                    isImgShow = true;
-
                     break;
-
-                case R.id.fragment_homepage_item_pn:
-
-                    TextView tv = (TextView) v;
-                    Drawable drawable = itemView.getContext().getResources().getDrawable(R.mipmap.laud_press_down);
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                    tv.setCompoundDrawables(drawable, null, null, null);
-                    String n = tv.getText().toString();
-                    int num = Integer.parseInt(n);
-                    tv.setText(String.valueOf(num + 1));
-                    tv.setClickable(false);
-
             }
-
-
         }
     }
 
