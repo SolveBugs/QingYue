@@ -1,0 +1,54 @@
+package com.chsj.qingyue.fragments.homepage;
+
+
+public class HpEntity {
+
+    private String strThumbnaiUrl;
+    private String Author;
+    private String strContent;
+    private String strPn;
+
+    public HpEntity() {
+    }
+
+    public HpEntity(String strThumbnaiUrl, String author, String strContent, String strPn) {
+        this.strThumbnaiUrl = strThumbnaiUrl;
+        Author = author;
+        this.strContent = strContent;
+        this.strPn = strPn;
+    }
+
+    public String getStrThumbnaiUrl() {
+        return strThumbnaiUrl;
+    }
+
+    public void setStrThumbnaiUrl(String strThumbnaiUrl) {
+        this.strThumbnaiUrl = strThumbnaiUrl;
+    }
+
+    public String getAuthor() {
+        return Author;
+    }
+
+    public void setAuthor(String author) {
+        Author = author;
+    }
+
+    public String getStrContent() {
+        return strContent;
+    }
+
+    public void setStrContent(String strContent) {
+        this.strContent = strContent;
+    }
+
+    public String getStrPn() {
+        return strPn;
+    }
+
+    public void setStrPn(String strPn) {
+        this.strPn = strPn;
+    }
+
+
+}

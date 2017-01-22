@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chsj.qingyue.question.QuestionFragment">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/position_fragment_viewpager"
+        style="@style/allWidthAndHeightMatchParent"
+        />
+
+    <RelativeLayout
+        android:id="@+id/question_fragment_to_share"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:background="#808080"
+        android:alpha="0.8"
+        android:visibility="visible"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/question_no_can_share"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@mipmap/close_sharemicroblog_dialog"
+            android:layout_alignParentRight="true"
+            />
+
+        <ImageView
+            android:id="@+id/problem_center_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/one_more_apply"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            />
+        <TextView
+            android:layout_below="@id/problem_center_share"
+            android:layout_centerHorizontal="true"
+            style="@style/allWidthAndHeightWrapcontent"
+            android:textSize="15sp"
+            android:text="@string/question_message_can_share"
+            />
+    </RelativeLayout>
+</FrameLayout>

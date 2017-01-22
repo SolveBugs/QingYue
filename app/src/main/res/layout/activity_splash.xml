@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash_container_linear"
+    style="@style/allWidthAndHeightMatchParent"
+    android:background="@mipmap/start_app_bg_icon"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.chsj.qingyue.SplashActivity">
+
+    <FrameLayout
+        android:id="@+id/activity_splash_fr"
+        style="@style/allWidthAndHeightWrapcontent"
+        android:layout_margin="20dp">
+
+        <RelativeLayout
+            android:id="@+id/relative_window"
+            style="@style/allWidthAndHeightWrapcontent"
+            android:background="#fff"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/splash_info"
+                android:layout_width="match_parent"
+                style="@style/inSplashMessageTextStyle1"
+                android:layout_height="wrap_content"
+                android:text="@string/message_in_main" />
+
+            <CheckBox
+                android:id="@+id/splash_chexkbox"
+                style="@style/allWidthAndHeightWrapcontent"
+                android:layout_below="@id/splash_info"
+                android:text="@string/messag_no_msg" />
+
+            <TextView
+                android:id="@+id/splash_agree"
+                style="@style/inSplashMessageTextStyle"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/splash_chexkbox"
+                android:text="@string/message_agree"
+                />
+
+            <TextView
+                android:id="@+id/splash_exit"
+                style="@style/inSplashMessageTextStyle"
+                android:layout_alignBaseline="@id/splash_agree"
+                android:layout_marginRight="40sp"
+                android:layout_toLeftOf="@id/splash_agree"
+                android:text="@string/message_in_exit"
+                />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</LinearLayout>
