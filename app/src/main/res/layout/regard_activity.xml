@@ -1,10 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context="com.chsj.qingyue.fragments.person.PersonFragment">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,12 +15,12 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
 
-            android:src="@drawable/return_btn_selector"
             android:onClick="setOperate"
-            android:scaleType="centerInside" />
+            android:scaleType="centerInside"
+            android:src="@drawable/return_btn_selector" />
 
         <TextView
-        style="@style/allWidthAndHeightWrapcontent"
+            style="@style/allWidthAndHeightWrapcontent"
             android:layout_centerInParent="true"
             android:text="@string/about_title"
             android:textSize="23sp" />
@@ -42,8 +40,7 @@
 
             <RelativeLayout
                 style="@style/allWidthAndHeightMatchParent"
-                android:background="@mipmap/third_party_login_bg_mobile"
-                >
+                android:background="@mipmap/third_party_login_bg_mobile">
 
                 <TextView
                     android:id="@+id/regard_head"
@@ -66,12 +63,12 @@
 
 
                 <TextView
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="20dp"
-                    android:layout_below="@id/regard_content"
                     android:layout_width="wrap_content"
-                    android:text="‘轻阅读’是另一种重质感的阅读。---王肖练"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/regard_content"
+                    android:layout_marginTop="20dp"
+                    android:text="‘轻阅读’是另一种重质感的阅读。---王肖练" />
 
 
             </RelativeLayout>

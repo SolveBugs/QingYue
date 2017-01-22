@@ -7,17 +7,21 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
+import com.chsj.qingyue.adapter.MyFragmentPagerAdapter;
 import com.chsj.qingyue.fragments.article.ArticleEntity;
 import com.chsj.qingyue.fragments.music.PlaySongService;
 import com.chsj.qingyue.fragments.music.SongDetails;
@@ -39,51 +43,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //广播接受者：
     private ShareBroadcastReceiver shareBroadcastReceiver;
 
-
-    private FragmentManager mFragmentMan;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
+    private MyFragmentPagerAdapter myFragmentPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        mFragmentMan = getSupportFragmentManager();
+        initViews();
 
         isNetWorkAvalable = NetWorkUtils.isConnect(this);
-		
-        first = (RadioButton) findViewById(R.id.main_tab_item_first);
-        article = (RadioButton) findViewById(R.id.main_tab_item_article);
-        question = (RadioButton) findViewById(R.id.main_tab_item_problem);
-        things = (RadioButton) findViewById(R.id.main_tab_item_things);
-        personal = (RadioButton) findViewById(R.id.main_tab_item_personal);
-
-        share = (ImageView) findViewById(R.id.title_share);
-
-
-        //初始化单击事件：
-        first.setOnClickListener(this);
-        article.setOnClickListener(this);
-        question.setOnClickListener(this);
-        things.setOnClickListener(this);
-        personal.setOnClickListener(this);
-
         if (!isNetWorkAvalable) {//当前没有网络，进入 网络设置界面
             //TODO 进行网络设置
             Intent intent = new Intent(MainActivity.this, SettingNetActivity.class);
             startActivity(intent);
-        } else {//有网络，加载默认的fragment
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_id, Constants.FRAGMENT_HOME)
-                    .commit();
         }
+
         //实例化广播接受者：
         localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
         shareBroadcastReceiver = new ShareBroadcastReceiver();
         //注册本地广播接受者：
         localBroadcastManager.registerReceiver(shareBroadcastReceiver, new IntentFilter(Constants.GET_DATA_TO_SHARE));
+    }
 
-        //添加分享的单击事件：
+    private void initViews() {
+
+        share = (ImageView) findViewById(R.id.title_share);
         share.setOnClickListener(this);
+
+
+        //使用适配器将ViewPager与Fragment绑定在一起
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(myFragmentPagerAdapter);
+
+        //将TabLayout与ViewPager绑定在一起
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout.setupWithViewPager(mViewPager);
+
     }
 
     //初始化单击事件：
@@ -91,35 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-
-            case R.id.main_tab_item_first:
-
-                switchContent(Constants.ACTIVITY_CURRENT_FRAGMENT, Constants.FRAGMENT_HOME);
-
-                break;
-
-            case R.id.main_tab_item_article:
-                switchContent(Constants.ACTIVITY_CURRENT_FRAGMENT, Constants.FRAGMENT_ARTICLE);
-
-                break;
-
-            case R.id.main_tab_item_problem:
-
-                switchContent(Constants.ACTIVITY_CURRENT_FRAGMENT, Constants.FRAGMENT_QUESTION);
-
-                break;
-
-            case R.id.main_tab_item_things:
-
-                switchContent(Constants.ACTIVITY_CURRENT_FRAGMENT, Constants.FRAGMENT_SONG);
-
-                break;
-
-            case R.id.main_tab_item_personal:
-                switchContent(Constants.ACTIVITY_CURRENT_FRAGMENT, Constants.FRAGMENT_PERSON);
-
-                break;
-
             //点击分享事件：
             case R.id.title_share:
 
@@ -239,31 +208,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onReceive(Context context, Intent intent) {
             Bundle bundle = intent.getExtras();
             data = bundle.get(Constants.DATA_TO_EXTRA);
-//            String title=bundle.getString("articleTitle");
-//            Log.d("title",title);
         }
     }
-
-
-    /**
-     * 切换Fragment，防止被重新初始化
-     * @param from
-     * @param to
-     */
-    public void switchContent(Fragment from, Fragment to) {
-        if (Constants.ACTIVITY_CURRENT_FRAGMENT != to) {
-
-            Constants.ACTIVITY_CURRENT_FRAGMENT = to;
-            FragmentTransaction transaction = mFragmentMan.beginTransaction();
-
-            if (!to.isAdded()) {    // 先判断是否被add过
-                transaction.hide(from).add(R.id.fragment_id, to)
-                        .commit();  //隐藏当前的fragment，add下一个到Activity中
-            } else {
-                transaction.hide(from).show(to).commit(); // 隐藏当前的fragment，显示下一个
-            }
-        }
-    }
-
-
 }
