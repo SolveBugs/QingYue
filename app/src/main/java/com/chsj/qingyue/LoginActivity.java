@@ -1,24 +1,21 @@
 package com.chsj.qingyue;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.chsj.qingyue.base.BaseActivity;
 
 import java.util.HashMap;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 
-public class LoginActivity extends AppCompatActivity implements PlatformActionListener {
+public class LoginActivity extends BaseActivity implements PlatformActionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

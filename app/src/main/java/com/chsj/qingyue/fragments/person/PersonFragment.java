@@ -4,16 +4,12 @@ package com.chsj.qingyue.fragments.person;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chsj.qingyue.Constants;
 import com.chsj.qingyue.LoginActivity;
@@ -21,10 +17,8 @@ import com.chsj.qingyue.PersonalCenterActivity;
 import com.chsj.qingyue.R;
 import com.chsj.qingyue.RegardActivity;
 import com.chsj.qingyue.SettingActivity;
-import com.squareup.picasso.Picasso;
 
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;

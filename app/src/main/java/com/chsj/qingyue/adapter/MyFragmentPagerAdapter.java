@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.chsj.qingyue.fragments.article.ArticleFragment;
 import com.chsj.qingyue.fragments.homepage.HomePageFragment;
 import com.chsj.qingyue.fragments.music.SongFragment;
-import com.chsj.qingyue.fragments.person.PersonFragment;
 import com.chsj.qingyue.fragments.question.QuestionFragment;
 
 /**
@@ -16,7 +15,7 @@ import com.chsj.qingyue.fragments.question.QuestionFragment;
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private String[] mTitles = new String[]{"首页", "文章", "问题", "音乐", "我的"};
+    private String[] mTitles = new String[]{"首页", "文章", "问题", "音乐"};
 
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -24,16 +23,14 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 1) {
+        if (position == 0) {
             return new HomePageFragment();
-        } else if (position == 2) {
+        } else if (position == 1) {
             return new ArticleFragment();
-        } else if (position == 3) {
+        } else if (position == 2) {
             return new QuestionFragment();
-        } else if (position == 4) {
+        } else if (position == 3) {
             return new SongFragment();
-        } else if (position == 5) {
-            return new PersonFragment();
         }
         return new HomePageFragment();
     }

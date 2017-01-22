@@ -1,23 +1,19 @@
 package com.chsj.qingyue;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.chsj.qingyue.base.BaseActivity;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,9 +1,7 @@
 package com.chsj.qingyue.fragments.question;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.chsj.qingyue.Constants;
 import com.chsj.qingyue.tools.HttpTools;
 
 import org.json.JSONException;

@@ -1,12 +1,9 @@
 package com.chsj.qingyue.fragments.question;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +14,6 @@ import android.widget.Toast;
 import com.chsj.qingyue.Constants;
 import com.chsj.qingyue.R;
 import com.chsj.qingyue.ZoomOutPageTransformer;
-
-import org.xml.sax.helpers.LocatorImpl;
 
 import java.util.ArrayList;
 import java.util.List;

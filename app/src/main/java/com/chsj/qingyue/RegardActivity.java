@@ -1,13 +1,12 @@
 package com.chsj.qingyue;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-public class RegardActivity extends AppCompatActivity implements View.OnClickListener {
+import com.chsj.qingyue.base.BaseActivity;
+
+public class RegardActivity extends BaseActivity implements View.OnClickListener {
 
     ImageView backIMG;
 

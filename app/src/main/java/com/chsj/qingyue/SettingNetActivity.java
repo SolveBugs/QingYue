@@ -1,6 +1,5 @@
 package com.chsj.qingyue;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -8,7 +7,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class SettingNetActivity extends Activity {
+import com.chsj.qingyue.base.BaseActivity;
+
+public class SettingNetActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

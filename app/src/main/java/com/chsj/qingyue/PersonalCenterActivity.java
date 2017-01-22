@@ -1,15 +1,15 @@
 package com.chsj.qingyue;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chsj.qingyue.base.BaseActivity;
 import com.squareup.picasso.Picasso;
 
-public class PersonalCenterActivity extends AppCompatActivity {
+public class PersonalCenterActivity extends BaseActivity {
 
     String nickName, icon;
     private ImageView iconUser;

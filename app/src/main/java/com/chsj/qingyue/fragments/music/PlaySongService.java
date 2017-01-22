@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import com.chsj.qingyue.Constants;
 

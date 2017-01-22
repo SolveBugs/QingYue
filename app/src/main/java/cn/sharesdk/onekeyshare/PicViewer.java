@@ -14,7 +14,6 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.DisplayMetrics;
-import android.util.FloatMath;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;

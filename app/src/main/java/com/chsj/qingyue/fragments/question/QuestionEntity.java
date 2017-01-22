@@ -1,10 +1,5 @@
 package com.chsj.qingyue.fragments.question;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import org.json.JSONObject;
-
 import java.io.Serializable;
 
 public class QuestionEntity implements Serializable {

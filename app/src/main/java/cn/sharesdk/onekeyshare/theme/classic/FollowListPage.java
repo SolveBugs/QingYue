@@ -29,17 +29,18 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mob.tools.gui.AsyncImageView;
+import com.mob.tools.gui.BitmapProcessor;
+import com.mob.tools.gui.PullToRefreshListAdapter;
+import com.mob.tools.gui.PullToRefreshView;
+import com.mob.tools.utils.UIHandler;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.TitleLayout;
-import com.mob.tools.gui.AsyncImageView;
-import com.mob.tools.gui.BitmapProcessor;
-import com.mob.tools.gui.PullToRefreshListAdapter;
-import com.mob.tools.gui.PullToRefreshView;
-import com.mob.tools.utils.UIHandler;
 import cn.sharesdk.onekeyshare.FollowerListFakeActivity;
 
 import static com.mob.tools.utils.R.dipToPx;

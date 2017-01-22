@@ -1,7 +1,5 @@
 package com.chsj.qingyue.sharedsdk;
 
-import android.graphics.Color;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 import cn.sharesdk.framework.TitleLayout;
