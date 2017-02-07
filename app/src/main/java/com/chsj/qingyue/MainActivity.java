@@ -7,15 +7,25 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chsj.qingyue.adapter.MyFragmentPagerAdapter;
 import com.chsj.qingyue.base.BaseActivity;
 import com.chsj.qingyue.fragments.music.PlaySongService;
 import com.chsj.qingyue.tools.NetWorkUtils;
 
-public class MainActivity extends BaseActivity {
+import java.util.HashMap;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener, PlatformActionListener {
+
+    private static final String TAG = "MainActivity";
     private boolean isNetWorkAvalable;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -23,6 +33,8 @@ public class MainActivity extends BaseActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    private ImageView ivLoginQQ, ivLoginWechat, ivLoginWeibo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +79,12 @@ public class MainActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_left);
+        ivLoginQQ = (ImageView) mDrawerLayout.findViewById(R.id.iv_login_qq);
+        ivLoginQQ.setOnClickListener(this);
+        ivLoginWechat = (ImageView) mDrawerLayout.findViewById(R.id.iv_login_wechat);
+        ivLoginWechat.setOnClickListener(this);
+        ivLoginWeibo = (ImageView) mDrawerLayout.findViewById(R.id.iv_login_weibo);
+        ivLoginWeibo.setOnClickListener(this);
     }
 
     @Override
@@ -85,4 +103,36 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_login_qq:
+                Platform qq = ShareSDK.getPlatform(this, QQ.NAME);
+                qq.setPlatformActionListener(this);
+                qq.authorize();
+                break;
+            case R.id.iv_login_wechat:
+                break;
+            case R.id.iv_login_weibo:
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+        Log.i(TAG, "onComplete: " + platform.getDb().getUserIcon() + "===" + platform.getDb().getUserName() + "===" +
+                platform.getDb().getUserGender() + "====" + platform.getDb().getPlatformVersion());
+    }
+
+    @Override
+    public void onError(Platform platform, int i, Throwable throwable) {
+        Log.i(TAG, "onError: " + throwable.toString());
+    }
+
+    @Override
+    public void onCancel(Platform platform, int i) {
+        Log.i(TAG, "onCancel: ");
+    }
 }
