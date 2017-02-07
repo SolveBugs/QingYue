@@ -2,11 +2,7 @@ package com.chsj.qingyue;
 
 import android.support.v4.app.Fragment;
 
-import com.chsj.qingyue.fragments.article.ArticleFragment;
 import com.chsj.qingyue.fragments.homepage.HomePageFragment;
-import com.chsj.qingyue.fragments.music.SongFragment;
-import com.chsj.qingyue.fragments.person.PersonFragment;
-import com.chsj.qingyue.fragments.question.QuestionFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +15,8 @@ public class Constants {
     //    欢迎页显示的版本，根据版本判断是否显示
     public static final String SP_KEY_IS_AGREE = "agree";
 
+
+    public static final String BASE_URL_1 = "http://rest.wufazhuce.com/OneForWeb/one/";
 
     public static final String URL_HOME_PAGE =
             "http://rest.wufazhuce.com/OneForWeb/one/getHp_N?" +
@@ -68,18 +66,9 @@ public class Constants {
     //当前Activity显示的Fragment
     public static Fragment ACTIVITY_CURRENT_FRAGMENT = new HomePageFragment();
 
-    public static final HomePageFragment FRAGMENT_HOME = (HomePageFragment) Constants.ACTIVITY_CURRENT_FRAGMENT;
-    public static final ArticleFragment FRAGMENT_ARTICLE = new ArticleFragment();
-    public static final QuestionFragment FRAGMENT_QUESTION = new QuestionFragment();
-    public static final SongFragment FRAGMENT_SONG = new SongFragment();
-    public static final PersonFragment FRAGMENT_PERSON = new PersonFragment();
 
-    //-----------------------------------------------
-
-
-
-    public static final String INTENT_ACTION_LOGOUT="com.chsj.qingyue.logout";
-    public static final String INTENT_ACTION_LOGIN="com.chsj.qingyue.login";
+    public static final String INTENT_ACTION_LOGOUT = "com.chsj.qingyue.logout";
+    public static final String INTENT_ACTION_LOGIN = "com.chsj.qingyue.login";
 
     public static boolean FIRST_IN_HOMEPAGE = true;
 

@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import com.chsj.qingyue.Constants;
 import com.chsj.qingyue.R;
+import com.chsj.qingyue.apiclient.Apiclient;
+import com.chsj.qingyue.bean.BaseEntity;
 import com.chsj.qingyue.tools.ImageUtils;
 import com.squareup.picasso.Picasso;
 
@@ -31,12 +33,16 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomePageFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
-
+    private static final String TAG = "HomePageFragment";
     //图片网址
     private static String imgUrl = null;
 
@@ -108,34 +114,38 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
         super.onResume();
 
         if (Constants.FIRST_IN_HOMEPAGE) {
-
-
             anim = (AnimationDrawable) imageView.getBackground();
             anim.start();
 
-            //
             datas.clear();
             for (int i = 1; i <= 10; i++) {
-                new AsyTask(new AsyTask.CallBack() {
+                Call<com.chsj.qingyue.bean.HpEntity> responseBodyCall = Apiclient.getHpEntity("null", String.valueOf(i));
+                responseBodyCall.enqueue(new Callback<com.chsj.qingyue.bean.HpEntity>() {
                     @Override
-                    public void setJsonStr(String str) {
-                        jsonStr = str;
-                        Log.d("str", jsonStr + "====");
-                        HpEntity hpEntity = ParseTool.parse(jsonStr);
+                    public void onResponse(Call<com.chsj.qingyue.bean.HpEntity> call, Response<com.chsj.qingyue.bean.HpEntity> response) {
+
+                        HpEntity hpEntity = new HpEntity();
+                        com.chsj.qingyue.bean.HpEntity.HpEntityBean bean = response.body().getHpEntity();
+                        hpEntity.setAuthor(bean.getStrAuthor());
+                        hpEntity.setStrContent(bean.getStrContent());
+                        hpEntity.setStrPn(bean.getStrPn());
+                        hpEntity.setStrThumbnaiUrl(bean.getStrThumbnailUrl());
+
                         adapter.notifyDataSetChanged();
                         anim.stop();
                         imageView.setVisibility(View.GONE);
                         datas.add(hpEntity);
                     }
-                }).execute(String.format(Constants.URL_HOME_PAGE, i));
 
-
+                    @Override
+                    public void onFailure(Call<com.chsj.qingyue.bean.HpEntity> call, Throwable t) {
+                        Log.i(TAG, "onFailure: " + t.toString());
+                    }
+                });
+                adapter.notifyDataSetChanged();
+                Constants.FIRST_IN_HOMEPAGE = false;
             }
-            adapter.notifyDataSetChanged();
-
-            Constants.FIRST_IN_HOMEPAGE = false;
         }
-
     }
 
     /**
