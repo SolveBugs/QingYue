@@ -93,4 +93,6 @@
 <string name="title_activity_personal_center">个人中心</string>
     <string name="now_page_no_to_share">当前页无法分享</string>
 
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>
