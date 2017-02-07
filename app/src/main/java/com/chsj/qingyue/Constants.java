@@ -62,14 +62,6 @@ public class Constants {
     public static boolean isExit = false;
 
 
-    //控制Fragment切换不销毁
-    //当前Activity显示的Fragment
-    public static Fragment ACTIVITY_CURRENT_FRAGMENT = new HomePageFragment();
-
-
     public static final String INTENT_ACTION_LOGOUT = "com.chsj.qingyue.logout";
     public static final String INTENT_ACTION_LOGIN = "com.chsj.qingyue.login";
-
-    public static boolean FIRST_IN_HOMEPAGE = true;
-
 }

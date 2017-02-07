@@ -56,7 +56,6 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(this, PlaySongService.class);
         Constants.isExit = true;
         stopService(intent);
-
         super.onDestroy();
     }
 

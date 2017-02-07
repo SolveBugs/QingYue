@@ -46,8 +46,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
     //图片网址
     private static String imgUrl = null;
 
-    private String jsonStr;
-
     private RecyclerView recyclerView;
     private List<HpEntity> datas;
     private MyRecyclerAdapter adapter;
@@ -60,26 +58,22 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
     private ImageView imageView;
     private AnimationDrawable anim;
 
+    private static boolean hasLoadData;
+
     public HomePageFragment() {
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         datas = new LinkedList<HpEntity>();
-
-
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         View ret = null;
-
         ret = inflater.inflate(R.layout.fragment_home_page, container, false);
         imageView = (ImageView) ret.findViewById(R.id.fragment_home_progress_loading);
 
@@ -93,16 +87,13 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
                 false
         );
 
-
         recyclerView.setLayoutManager(manager);
         adapter = new MyRecyclerAdapter(datas);
         recyclerView.setAdapter(adapter);
-
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         imgShow.setOnClickListener(this);
         imgShow.setOnLongClickListener(this);
-
 
         return ret;
     }
@@ -110,20 +101,17 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onResume() {
-
         super.onResume();
 
-        if (Constants.FIRST_IN_HOMEPAGE) {
+        if (!hasLoadData) {
             anim = (AnimationDrawable) imageView.getBackground();
             anim.start();
-
             datas.clear();
             for (int i = 1; i <= 10; i++) {
                 Call<com.chsj.qingyue.bean.HpEntity> responseBodyCall = Apiclient.getHpEntity("null", String.valueOf(i));
                 responseBodyCall.enqueue(new Callback<com.chsj.qingyue.bean.HpEntity>() {
                     @Override
                     public void onResponse(Call<com.chsj.qingyue.bean.HpEntity> call, Response<com.chsj.qingyue.bean.HpEntity> response) {
-
                         HpEntity hpEntity = new HpEntity();
                         com.chsj.qingyue.bean.HpEntity.HpEntityBean bean = response.body().getHpEntity();
                         hpEntity.setAuthor(bean.getStrAuthor());
@@ -143,7 +131,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
                     }
                 });
                 adapter.notifyDataSetChanged();
-                Constants.FIRST_IN_HOMEPAGE = false;
+                hasLoadData = true;
             }
         }
     }
@@ -181,8 +169,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
                 .create();
 
         dialog.show();
-
-
         /**
          * 取消长按操作
          */
@@ -293,9 +279,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
 
         @Override
         public void onClick(View v) {
-
             int id = v.getId();
-
             switch (id) {
                 case R.id.fragment_homepage_item_icon:
                     frameLayout.setVisibility(View.VISIBLE);
@@ -306,17 +290,5 @@ public class HomePageFragment extends Fragment implements View.OnClickListener, 
                     break;
             }
         }
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Constants.FIRST_IN_HOMEPAGE = true;
     }
 }
