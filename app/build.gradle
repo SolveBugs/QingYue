@@ -12,18 +12,39 @@ android {
         versionName "1.0"
     }
 
+    //签名
+    signingConfigs {
+        debug {
+
+        }
+        release {// 自己的签名文件
+            storeFile file("sign/zqdebug.jks")
+            storePassword "199320"
+            keyAlias "zqdebug"
+            keyPassword "199320"
+        }
+    }
     dexOptions {
         javaMaxHeapSize "4g"
         jumboMode = true
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
+        debug {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名
+            signingConfig signingConfigs.release
         }
     }
-
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
