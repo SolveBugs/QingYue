@@ -21,7 +21,9 @@ import java.util.HashMap;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, PlatformActionListener {
 
@@ -112,8 +114,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 qq.authorize();
                 break;
             case R.id.iv_login_wechat:
+                Platform wechat = ShareSDK.getPlatform(this, Wechat.NAME);
+                if (wechat.isValid()) {
+                    String userId = wechat.getDb().getUserId();
+                    if (userId != null) {
+                        wechat.removeAccount();
+                    }
+                }
+                wechat.setPlatformActionListener(this);
+                wechat.SSOSetting(false);
+                wechat.authorize();
                 break;
             case R.id.iv_login_weibo:
+                Platform sina = ShareSDK.getPlatform(this, SinaWeibo.NAME);
+                if (sina.isValid()) {
+                    String userId = sina.getDb().getUserId();
+                    if (userId != null) {
+                        sina.removeAccount();
+                    }
+                }
+                sina.setPlatformActionListener(this);
+                sina.SSOSetting(false);
+                sina.authorize();
                 break;
             default:
                 break;

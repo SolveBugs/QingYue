@@ -25,18 +25,14 @@ public class ArticleFragmentItem extends Fragment implements ArticleTask.Article
     private ScrollView scrollView;
     private ImageView loadImage;
     //    post请求地址中的参数
-    private LinearLayout linearLayout;
     private String paramers = "strDate=null&strRow=%d";
     private CheckBox praiseBtn;
     AnimationDrawable animation;
-    //    加载完成参数
-    private boolean isResume;
     private TextView authorNameTV,
             markeTimeTV,
             contTitleTV,
             contentTV,
-    //            praiseNumberTV,
-    weixinTV,
+            weixinTV,
             authorIntroduce,
             authorNameW_article_fragment_item,
             introduce_article_fragment_item;
@@ -54,29 +50,16 @@ public class ArticleFragmentItem extends Fragment implements ArticleTask.Article
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.article_fragment_item, container, false);
         initView(view);
-//开启异步任务请求资源
+        //开启异步任务请求资源
         ArticleTask task = (ArticleTask) new ArticleTask(this)
                 .execute(Constants.ARTICLE_URL, String.format(paramers, page));
 
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        isResume=true;
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        isResume=false;
-    }
 
     //初始化Fragment上的Ui控件，
     private void initView(View view) {
-//        获取load动画
         loadImage = (ImageView) view.findViewById(R.id.article_progress_loading);
         animation = (AnimationDrawable) loadImage.getBackground();
         animation.start();
@@ -85,16 +68,13 @@ public class ArticleFragmentItem extends Fragment implements ArticleTask.Article
         contTitleTV = (TextView) view.findViewById(R.id.contTitle_article_fragment_item);
         contentTV = (TextView) view.findViewById(R.id.content_article_fragment_item);
         praiseBtn = (CheckBox) view.findViewById(R.id.praiseNumber_article_fragment_item);
-//        praiseBtn.setVisibility(View.INVISIBLE);
         praiseBtn.setOnCheckedChangeListener(this);
         weixinTV = (TextView) view.findViewById(R.id.weixin_article_fragment_item);
         authorIntroduce = (TextView) view.findViewById(R.id.authorIntroduce_article_fragment_item);
         authorNameW_article_fragment_item = (TextView) view.findViewById(R.id.authorNameW_article_fragment_item);
         introduce_article_fragment_item = (TextView) view.findViewById(R.id.introduce_article_fragment_item);
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_article_fragment_item);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView_article_fragment_item);
         scrollView.setVisibility(View.INVISIBLE);
-//        linearLayout.setVisibility(View.INVISIBLE);
     }
 
     //    异步任务返回接口，字符的分割和UI的显示
@@ -126,34 +106,16 @@ public class ArticleFragmentItem extends Fragment implements ArticleTask.Article
         authorIntroduce.setText(articleEntity.getStrContAuthorIntroduce());
         authorNameW_article_fragment_item.setText(articleEntity.getStrContAuthor());
         introduce_article_fragment_item.setText(str[1].substring(0, str[1].indexOf("。") + 1));
-//        linearLayout.setVisibility(View.VISIBLE);
-//        praiseBtn.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.VISIBLE);
-//        if (page==1) {
-//
-//            //该页面备选中后   发送广播数据：通过本地广播管理器  来发送广播：
-//            Intent intent = new Intent(Constants.GET_DATA_TO_SHARE);
-//            Bundle bundle = new Bundle();
-//            bundle.putString("articleTitle", articleEntity.getStrContTitle());
-//            intent.putExtras(bundle);
-//            LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
-//        }
-
-//
-
-
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//        ArticleTask task = (ArticleTask) new ArticleTask(this)
-//                .execute(Constants.ARTICLE_URL, String.format(paramers, page));
         if (isChecked) {
             praiseNum++;
         } else {
             praiseNum--;
         }
         praiseBtn.setText("" + praiseNum);
-//        TODO 点赞处理
     }
 }
